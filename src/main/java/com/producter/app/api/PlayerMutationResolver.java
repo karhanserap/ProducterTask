@@ -26,7 +26,9 @@ public class PlayerMutationResolver implements GraphQLMutationResolver {
     }
 
     private Player dtoToEntity(PlayerDto playerDto) {
-        if(playerDto.getPlayerName().trim().isEmpty() || playerDto.getPlayerSurname().trim().isEmpty() ||playerDto.getPositionName().trim().isEmpty())
+        if(null == playerDto.getPlayerName() || playerDto.getPlayerName().trim().isEmpty() ||
+                null == playerDto.getPlayerSurname() || playerDto.getPlayerSurname().trim().isEmpty() ||
+                null == playerDto.getPositionName() ||playerDto.getPositionName().trim().isEmpty())
             throw new GraphQLException(ResponseCode.INVALID_REQUEST.getMessage());
         if (!(AppConstants.TEAM_CAPACITY > playerRepository.findAll().size()))
             throw new GraphQLException(ResponseCode.TEAM_CAPACITY_ERROR.getMessage());
